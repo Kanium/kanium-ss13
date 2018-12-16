@@ -1,0 +1,3 @@
+[submodule "tgstation-server"]
+	path = tgstation-server
+	url = https://github.com/tgstation/tgstation-server.git
