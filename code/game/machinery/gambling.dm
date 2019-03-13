@@ -133,6 +133,7 @@
 
 	else if(href_list["stand"])
 		dealer_turn()
+		updateDialog()
 
 /obj/machinery/computer/blackjack_machine/proc/deal()
 	var/cardone = pick(deck)
