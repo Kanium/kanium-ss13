@@ -336,6 +336,10 @@
 	name = "Slot Machine (Computer Board)"
 	build_path = /obj/machinery/computer/slot_machine
 
+/obj/item/circuitboard/computer/blackjack_machine
+	name = "Blackjack Machine (Computer Board)"
+	build_path = /obj/machinery/computer/blackjack_machine
+
 /obj/item/circuitboard/computer/libraryconsole
 	name = "Library Visitor Console (Computer Board)"
 	build_path = /obj/machinery/computer/libraryconsole

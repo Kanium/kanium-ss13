@@ -160,6 +160,14 @@
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
+/datum/design/board/blackjack_machine
+	name = "Computer Design (Blackjack Machine)"
+	desc = "Allows for the construction of circuit boards used to build a new blackjack machine."
+	id = "blackjackmachine"
+	build_path = /obj/item/circuitboard/computer/blackjack_machine
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
 /datum/design/board/powermonitor
 	name = "Computer Design (Power Monitor)"
 	desc = "Allows for the construction of circuit boards used to build a new power monitor."
