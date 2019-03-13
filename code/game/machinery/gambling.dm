@@ -14,6 +14,7 @@
 	var/dealertotal = 0
 	var/playertotal = 0
 	var/working = 0
+	var/standing = 0
 	var/gameinprogress = 0
 	var/list/playerhand = new/list()
 	var/list/dealerhand = new/list()
@@ -87,7 +88,9 @@
 	else
 		dat = {"<center><font size='1'><A href='?src=[REF(src)];hit=1'>Hit</A><font size='3'><A href='?src=[REF(src)];stand=1'>Stand</A><BR>
 		<BR><font size='4'>
-		[playerhand]
+		[playerhand]<BR>
+		You have: [get_value(playerhand)]<BR>
+		The Dealer has [dealerhand[1]] showing.
 		<BR></center>"}
 
 	var/datum/browser/popup = new(user, "blackjackmachine", "BlackJack Machine")
@@ -102,7 +105,12 @@
 		return .
 
 	if(href_list["deal"])
-		return
+		if(balance >= bet)
+			deal()
+			deal()
+			gameinprogress = 1
+		else
+			visible_message("<b>[src]</b> says, 'Not Enough Balance to make your Bet!'")
 
 	else if(href_list["betplus"])
 		if(bet < 500)
@@ -120,11 +128,69 @@
 			balance = 0
 
 	else if(href_list["hit"])
-		return
+		hit()
+		updateDialog()
 
 	else if(href_list["stand"])
-		return
+		dealer_turn()
 
+/obj/machinery/computer/blackjack_machine/proc/deal()
+	var/cardone = pick(deck)
+	var/cardtwo = pick(deck)
+	playerhand += cardone
+	dealerhand += cardtwo
+	return 1
+
+/obj/machinery/computer/blackjack_machine/proc/hit()
+	var/cardone = pick(deck)
+	playerhand += cardone
+	return 1
+
+
+/obj/machinery/computer/blackjack_machine/proc/get_value(hand)
+	var/aced = 0
+	var/total = 0
+	for(var/i in hand)
+		if(i=="A")
+			aced += 1
+
+	for(var/i in hand)
+		if(i=="A")
+			total += 11
+		else if(i=="K")
+			total += 10
+		else if(i=="Q")
+			total += 10
+		else if(i=="J")
+			total += 10
+		else
+			total += i
+
+	while(aced >= 1 && total > 21)
+		total = total - 10
+		aced -= 1
+
+	return total
+
+
+
+/obj/machinery/computer/blackjack_machine/proc/dealer_turn()
+	while(get_value(dealerhand) < 16)
+		dealerhand += pick(deck)
+
+	if(get_value(dealerhand) > 21 && get_value(playerhand) <= 21)
+		balance += (bet*2)
+		visible_message("<b>[src]</b> says, 'Dealer Busts! You Win!'")
+	else if(get_value(dealerhand) < get_value(playerhand))
+		visible_message("<b>[src]</b> says, 'You Win!'")
+		balance += (bet*2)
+	else if(get_value(dealerhand) == get_value(playerhand))
+		balance += bet
+		visible_message("<b>[src]</b> says, 'You Push!'")
+
+	gameinprogress = 0
+
+	return 1
 
 
 /obj/machinery/computer/blackjack_machine/proc/give_payout(amount)
@@ -137,6 +203,8 @@
 		amount = dispense(amount, /obj/item/holochip, target, 1)
 
 	return amount
+
+
 
 /obj/machinery/computer/blackjack_machine/proc/dispense(amount = 0, /obj/item/holochip, mob/living/target, throwit = 0)
 	var/obj/item/holochip/H = new /obj/item/holochip(loc,amount)
