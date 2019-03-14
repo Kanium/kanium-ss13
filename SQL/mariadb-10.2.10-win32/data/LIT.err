@@ -1,0 +1,13 @@
+2018-03-12  3:12:01 3944 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2018-03-12  3:12:01 3944 [Note] InnoDB: Uses event mutexes
+2018-03-12  3:12:01 3944 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2018-03-12  3:12:01 3944 [Note] InnoDB: Number of pools: 1
+2018-03-12  3:12:01 3944 [Note] InnoDB: Using SSE2 crc32 instructions
+2018-03-12  3:12:01 3944 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+2018-03-12  3:12:01 3944 [Note] InnoDB: Completed initialization of buffer pool
+2018-03-12  3:12:01 3944 [ERROR] InnoDB: The Auto-extending innodb_system data file '.\ibdata1' is of a different size 704 pages than specified in the .cnf file: initial 768 pages, max 0 (relevant if non-zero) pages!
+2018-03-12  3:12:01 3944 [ERROR] InnoDB: Plugin initialization aborted with error Generic error
+2018-03-12  3:12:01 3944 [Note] InnoDB: Starting shutdown...
+2018-03-12  3:12:01 3944 [ERROR] Plugin 'InnoDB' init function returned error.
+2018-03-12  3:12:01 3944 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2018-03-12  3:12:01 3944 [Note] Plugin 'FEEDBACK' is disabled.
