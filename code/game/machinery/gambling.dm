@@ -87,12 +87,22 @@
 		<BR>
 		</center><font size='1'><A href='?src=[REF(src)];refund=1'>Refund balance</A><BR>"}
 
+	else if(gameinprogress == 1 && standing == 1)
+		dat = {"<center>
+		<BR><font size='4'>
+		[list2params(playerhand)]
+		<BR>
+		You have: [get_value(playerhand)]<BR><HR>
+		The Dealer has [list2params(dealerhand)]<BR>
+		Their total is: [get_value(dealerhand)]
+		<BR></center>"}
+
 	else
 		dat = {"<center><font size='1'><A href='?src=[REF(src)];hit=1'>Hit</A><font size='3'><A href='?src=[REF(src)];stand=1'>Stand</A><BR>
 		<BR><font size='4'>
 		[list2params(playerhand)]
 		<BR>
-		You have: [get_value(playerhand)]<BR>
+		You have: [get_value(playerhand)]<BR><HR>
 		The Dealer has [dealerhand[1]] showing.
 		<BR></center>"}
 
@@ -109,6 +119,9 @@
 
 	if(href_list["deal"])
 		if(balance >= bet)
+			playerhand = new/list()
+			dealerhand = new/list()
+			standing = 0
 			deal()
 			deal()
 			gameinprogress = 1
@@ -136,10 +149,14 @@
 		updateDialog()
 
 	else if(href_list["stand"])
-		dealer_turn()
+		standing = 1
 		updateDialog()
+		dealer_turn(usr)
+
+
 
 /obj/machinery/computer/blackjack_machine/proc/deal()
+	working = 1
 	var/cardone = pick(deck)
 	var/cardtwo = pick(deck)
 	playerhand += cardone
@@ -151,6 +168,8 @@
 	playerhand += cardone
 	if(get_value(playerhand) > 21)
 		visible_message("<b>[src]</b> says, 'You Bust!'")
+		standing = 1
+		updateDialog()
 		dealer_turn()
 		return 0
 	return 1
@@ -183,24 +202,35 @@
 
 
 
-/obj/machinery/computer/blackjack_machine/proc/dealer_turn()
+/obj/machinery/computer/blackjack_machine/proc/dealer_turn(mob/living/user)
+	updateDialog()
+	sleep(10)
 	while(get_value(dealerhand) < 16)
 		dealerhand += pick(deck)
-		visible_message("<b>[src]</b> says, 'Dealer Hits! Dealer has: [get_value(dealerhand)]'")
+		to_chat(user, "<span class='notice'>Dealer Hits! Dealer has: [get_value(dealerhand)]</span>")
+		updateDialog()
+		sleep(10)
 
-	visible_message("<b>[src]</b> says, 'Dealer Stands.'")
-
+	updateDialog()
+	sleep(5)
 	if(get_value(dealerhand) > 21 && get_value(playerhand) <= 21)
 		balance += (bet*2)
 		visible_message("<b>[src]</b> says, 'Dealer Busts! You Win!'")
+	else if(get_value(playerhand) > 21)
+		balance -= bet
+		visible_message("<b>[src]</b> says, 'You Bust! You Lose!'")
 	else if(get_value(dealerhand) < get_value(playerhand) && get_value(playerhand) <= 21)
 		visible_message("<b>[src]</b> says, 'You Win!'")
 		balance += (bet*2)
 	else if(get_value(dealerhand) == get_value(playerhand))
-		balance += bet
 		visible_message("<b>[src]</b> says, 'You Push!'")
-
+	else if(get_value(dealerhand) > get_value(playerhand) && get_value(dealerhand) <= 21)
+		balance -= bet
+		visible_message("<b>[src]</b> says, 'You Lose!'")
 	gameinprogress = 0
+	working = 0
+	sleep(10)
+	updateDialog()
 
 	return 1
 
