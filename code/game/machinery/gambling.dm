@@ -9,7 +9,7 @@
 	circuit = /obj/item/circuitboard/computer/blackjack_machine
 	var/money = 3000
 	var/bet = 50
-	var/list/deck = new/list("A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2, "A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2, "A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2, "A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2)
+	var/list/deck = list("A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2, "A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2, "A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2, "A", "K", "Q", "J", 10, 9, 8, 7, 6, 5, 4, 3, 2)
 	var/balance = 0
 	var/dealertotal = 0
 	var/playertotal = 0
@@ -21,6 +21,7 @@
 
 /obj/machinery/computer/blackjack_machine/Initialize()
 	. = ..()
+	shuffle(deck)
 
 /obj/machinery/computer/blackjack_machine/process()
 	. = ..() //Sanity checks.
@@ -57,6 +58,7 @@
 		to_chat(user, "<span class='notice'>You insert [H.credits] holocredits into [src]'s!</span>")
 		balance += H.credits
 		qdel(H)
+		updateDialog()
 	else
 		return ..()
 
@@ -88,7 +90,8 @@
 	else
 		dat = {"<center><font size='1'><A href='?src=[REF(src)];hit=1'>Hit</A><font size='3'><A href='?src=[REF(src)];stand=1'>Stand</A><BR>
 		<BR><font size='4'>
-		[playerhand]<BR>
+		[list2params(playerhand)]
+		<BR>
 		You have: [get_value(playerhand)]<BR>
 		The Dealer has [dealerhand[1]] showing.
 		<BR></center>"}
@@ -109,6 +112,7 @@
 			deal()
 			deal()
 			gameinprogress = 1
+			updateDialog()
 		else
 			visible_message("<b>[src]</b> says, 'Not Enough Balance to make your Bet!'")
 
@@ -145,6 +149,10 @@
 /obj/machinery/computer/blackjack_machine/proc/hit()
 	var/cardone = pick(deck)
 	playerhand += cardone
+	if(get_value(playerhand) > 21)
+		visible_message("<b>[src]</b> says, 'You Bust!'")
+		dealer_turn()
+		return 0
 	return 1
 
 
@@ -178,11 +186,14 @@
 /obj/machinery/computer/blackjack_machine/proc/dealer_turn()
 	while(get_value(dealerhand) < 16)
 		dealerhand += pick(deck)
+		visible_message("<b>[src]</b> says, 'Dealer Hits! Dealer has: [get_value(dealerhand)]'")
+
+	visible_message("<b>[src]</b> says, 'Dealer Stands.'")
 
 	if(get_value(dealerhand) > 21 && get_value(playerhand) <= 21)
 		balance += (bet*2)
 		visible_message("<b>[src]</b> says, 'Dealer Busts! You Win!'")
-	else if(get_value(dealerhand) < get_value(playerhand))
+	else if(get_value(dealerhand) < get_value(playerhand) && get_value(playerhand) <= 21)
 		visible_message("<b>[src]</b> says, 'You Win!'")
 		balance += (bet*2)
 	else if(get_value(dealerhand) == get_value(playerhand))
