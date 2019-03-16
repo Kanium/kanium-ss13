@@ -302,13 +302,15 @@
 	required_reagents = list("berryjuice" = 1, "cream" = 1, "vermouth" = 1)
 
 
-////DRINKS THAT REQUIRED IMPROVED SPRITES BELOW:: -Agouri/////
-
 /datum/chemical_reaction/sbiten
 	name = "Sbiten"
 	id = "sbiten"
 	results = list("sbiten" = 10)
 	required_reagents = list("vodka" = 10, "capsaicin" = 1)
+
+
+////DRINKS THAT REQUIRED IMPROVED SPRITES BELOW:: -Agouri/////
+
 
 /datum/chemical_reaction/red_mead
 	name = "Red Mead"
