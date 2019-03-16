@@ -7,7 +7,7 @@ This branch is intended for Manual Setup, Ideally on a Windows Server, but can w
 ## /tg/station codebase
 **Website:** https://www.tgstation13.org
 **Code:** https://github.com/tgstation/tgstation
-**Wiki** https://tgstation13.org/wiki/Main_Page
+**Wiki:** https://tgstation13.org/wiki/Main_Page
 **DM Reference Docs:** http://www.byond.com/docs/ref/
  
 
