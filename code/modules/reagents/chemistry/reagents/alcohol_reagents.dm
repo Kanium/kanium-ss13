@@ -1772,6 +1772,18 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "Mojito"
 	glass_desc = "A drink that looks as refreshing as it tastes."
 
+/datum/reagent/consumable/ethanol/cosmo
+	name = "Cosmopolitan"
+	id = "cosmo"
+	description = "A sweet and tart red drink."
+	color = "#C73C00"
+	boozepwr = 30
+	quality = DRINK_GOOD
+	taste_description = "sweet and tart"
+	glass_icon_state = "cosmo"
+	glass_name = "Cosmopolitan"
+	glass_desc = "A sweet and tart red drink."
+
 /datum/reagent/consumable/ethanol/fernet
 	name = "Fernet"
 	id = "fernet"

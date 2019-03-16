@@ -461,6 +461,7 @@
 		"limejuice",
 		"tomatojuice",
 		"lemonjuice",
+		"cranberry",
 		"menthol"
 	)
 	upgrade_reagents = null

@@ -694,3 +694,9 @@
 	id = "blank_paper"
 	results = list("blank_paper" = 3)
 	required_reagents = list("silencer" = 1, "nothing" = 1, "nuka_cola" = 1)
+
+/datum/chemical_reaction/cosmo
+	name = "Cosmopolitan"
+	id = "cosmo"
+	results = list("cosmo" = 9)
+	required_reagents = list("vodka" = 4, "triple_sec" = 1, "limejuice" = 1, "cranberry" = 3)

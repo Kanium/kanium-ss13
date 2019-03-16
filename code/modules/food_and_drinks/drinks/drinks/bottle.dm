@@ -396,6 +396,15 @@
 	list_reagents = list("grenadine" = 100)
 	foodtype = FRUIT
 
+/obj/item/reagent_containers/food/drinks/bottle/cranberry
+	name = "cranberry juice"
+	desc = "Contains 0% real cranberry!"
+	custom_price = 10
+	icon_state = "cranberry"
+	isGlass = TRUE
+	list_reagents = list("cranberry" = 100)
+	foodtype = FRUIT
+
 
 ////////////////////////// MOLOTOV ///////////////////////
 /obj/item/reagent_containers/food/drinks/bottle/molotov

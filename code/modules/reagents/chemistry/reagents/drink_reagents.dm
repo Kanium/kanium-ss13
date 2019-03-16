@@ -36,6 +36,22 @@
 		. = 1
 	..()
 
+/datum/reagent/consumable/cranberry
+	name = "Cranberry Juice"
+	id = "cranberry"
+	description = "Cranberries made into juice."
+	color = "#731008" // rgb: 115, 16, 20
+	taste_description = "cranberries"
+	glass_icon_state = "glass_red"
+	glass_name = "glass of cranberry juice"
+	glass_desc = "A glass of acrid, red, cranberry juice."
+
+/datum/reagent/consumable/cranberry/on_mob_life(mob/living/carbon/M)
+	if(M.getFireLoss() && prob(20))
+		M.heal_bodypart_damage(0,1, 0)
+		. = 1
+	..()
+
 /datum/reagent/consumable/limejuice
 	name = "Lime Juice"
 	id = "limejuice"
