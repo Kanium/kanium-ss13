@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/vent_clog
 	weight = 10
 	max_occurrences = 3
-	min_players = 10
+	min_players = 5
 
 /datum/round_event/vent_clog
 	announceWhen	= 1

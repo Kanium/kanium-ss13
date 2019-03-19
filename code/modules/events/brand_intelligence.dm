@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/brand_intelligence
 	weight = 5
 
-	min_players = 15
+	min_players = 5
 	max_occurrences = 1
 
 /datum/round_event/brand_intelligence
