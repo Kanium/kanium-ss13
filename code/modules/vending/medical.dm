@@ -47,3 +47,37 @@
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
 	req_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/vending/public_pharmacy
+	name = "\improper NanoPharma"
+	desc = "Medical drug dispenser."
+	icon_state = "med"
+	icon_deny = "med-deny"
+	product_ads = "What ails you my friend?;Be your own doctor!;Natural chemicals!;Feeling off? Fix yourself up!;Don't you want some?"
+	products = list(/obj/item/stack/medical/gauze = 8,
+					/obj/item/reagent_containers/syringe = 4,
+					/obj/item/reagent_containers/dropper = 3,
+					/obj/item/healthanalyzer = 4,
+					/obj/item/reagent_containers/pill/patch/styptic = 5,
+					/obj/item/reagent_containers/pill/patch/silver_sulf = 5,
+					/obj/item/reagent_containers/pill/salbutamol = 2,
+					/obj/item/reagent_containers/medspray/styptic = 2,
+					/obj/item/reagent_containers/medspray/silver_sulf = 2,
+					/obj/item/reagent_containers/medspray/sterilizine = 1)
+	contraband = list(/obj/item/reagent_containers/pill/tox = 3,
+		              /obj/item/reagent_containers/pill/morphine = 4,
+		              /obj/item/reagent_containers/pill/floorpill = 6,
+					  /obj/item/reagent_containers/pill/happy = 4)
+	premium = list(/obj/item/reagent_containers/medspray/synthflesh = 2,
+		           /obj/item/storage/belt/medical = 3,
+		           /obj/item/storage/firstaid/advanced = 2)
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
+	refill_canister = /obj/item/vending_refill/public_pharmacy
+	default_price = 25
+	extra_price = 100
+	payment_department = ACCOUNT_MED
+
+/obj/item/vending_refill/public_pharmacy
+	machine_name = "NanoPharma"
+	icon_state = "refill_medical"

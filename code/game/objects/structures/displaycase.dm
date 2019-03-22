@@ -275,9 +275,9 @@
 		to_chat(user, "<span class='danger'>The case is shut tight with an old fashioned physical lock. Maybe you should ask the curator for the key?</span>")
 		return
 
-	if(!added_roundstart)
-		to_chat(user, "You've already put something new in this case.")
-		return
+//	if(!added_roundstart)
+//		to_chat(user, "You've already put something new in this case.")
+//		return
 
 	if(is_type_in_typecache(W, GLOB.blacklisted_cargo_types))
 		to_chat(user, "<span class='danger'>The case rejects the [W].</span>")
@@ -291,8 +291,9 @@
 	if(user.transferItemToLoc(W, src))
 
 		if(showpiece)
-			to_chat(user, "You press a button, and [showpiece] descends into the floor of the case.")
-			QDEL_NULL(showpiece)
+			to_chat(user, "You press a button, and [showpiece] is removed from the case.")
+			showpiece.forceMove(loc)
+			showpiece = null
 
 		to_chat(user, "You insert [W] into the case.")
 		showpiece = W
